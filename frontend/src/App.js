@@ -1,37 +1,58 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col } from 'react-bootstrap';
+
 
 import Header from './components/Header';
 import Search from './components/Search';
+import ImageCard from './components/ImageCard';
 
-const UNSPLASH_ACCESS_KEY = process.env.REACT_APP_UNSPLASH_ACCESS_KEY; 
+const UNSPLASH_ACCESS_KEY = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 const unsplashURL = "https://api.unsplash.com"
 
 
 function App() {
     const [searchParameter, setSearchParamter] = useState('');
+    const [images, setImages] = useState([])
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        fetch(`${unsplashURL}/photos/random/?query=${searchParameter}&client_id=${UNSPLASH_ACCESS_KEY}`)
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data)
+        axios
+            .get(`${unsplashURL}/photos/random/?query=${searchParameter}&client_id=${UNSPLASH_ACCESS_KEY}`)
+            .then(response => {
+                setImages(prevImages => {
+                    return [{ ...response.data, title: searchParameter }, ...prevImages]
+                })
             })
-            .catch((err) => {
-                console.log(err);
-            })
+            .catch(function (error) {
+                console.log(error.toJSON());
+            });
+        setSearchParamter('');
     }
 
     const handleOnChange = (e) => {
-        const {value} = e.target
+        const { value } = e.target
         setSearchParamter(value)
     }
 
     return (
         <div>
             <Header title="Unsplash Image Gallery" />
-            <Search searchParamter={searchParameter} setSearchParameter={setSearchParamter} handleSearchSubmit={handleSearchSubmit} handleOnChange={handleOnChange}/>
+            <Search searchParameter={searchParameter} setSearchParameter={setSearchParamter} handleSearchSubmit={handleSearchSubmit} handleOnChange={handleOnChange} />
+            <Container className="mt-4">
+                <Row xs={1} md={2} lg={4}>
+
+                {images.map((image, index) => {
+                    return (
+                        <Col key={index} className="pb-4">
+                            <ImageCard image={image} />
+                        </Col>
+                    )
+                })}
+                </Row>
+            </Container>
+            
         </div>
     );
 }
