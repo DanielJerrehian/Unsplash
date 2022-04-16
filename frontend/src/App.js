@@ -36,6 +36,10 @@ function App() {
         setSearchParamter(value)
     }
 
+    const handleDeleteImage = (imageId) => {
+        setImages(images.filter(image => image.id !== imageId));
+    }
+
     return (
         <div>
             <Header title="Unsplash Image Gallery" />
@@ -45,9 +49,11 @@ function App() {
 
                 {images.map((image, index) => {
                     return (
-                        <Col key={index} className="pb-4">
-                            <ImageCard image={image} />
-                        </Col>
+                        <div className="image-card">
+                            <Col key={index} className="pb-4">
+                                <ImageCard image={image} handleDeleteImage={handleDeleteImage} />
+                            </Col>
+                        </div>
                     )
                 })}
                 </Row>
