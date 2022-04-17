@@ -46,16 +46,15 @@ function App() {
             <Search searchParameter={searchParameter} setSearchParameter={setSearchParamter} handleSearchSubmit={handleSearchSubmit} handleOnChange={handleOnChange} />
             <Container className="mt-4">
                 <Row xs={1} md={2} lg={4}>
-
-                {images.map((image, index) => {
-                    return (
-                        <div className="image-card">
-                            <Col key={index} className="pb-4">
-                                <ImageCard image={image} handleDeleteImage={handleDeleteImage} />
-                            </Col>
-                        </div>
-                    )
-                })}
+                    {images.map((image, index) => {
+                        return (
+                            <div className="image-card">
+                                <Col key={index} className="pb-4">
+                                    <ImageCard image={image} handleDeleteImage={handleDeleteImage} />
+                                </Col>
+                            </div>
+                        )
+                    })}
                 </Row>
             </Container>
             
