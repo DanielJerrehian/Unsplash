@@ -9,9 +9,7 @@ import Search from './components/Search';
 import Welcome from './components/Welcome';
 import ImageCard from './components/ImageCard';
 
-const UNSPLASH_ACCESS_KEY = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
-const unsplashURL = "https://api.unsplash.com"
-
+const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050'
 
 function App() {
     const [searchParameter, setSearchParamter] = useState('');
@@ -20,7 +18,7 @@ function App() {
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         axios
-            .get(`${unsplashURL}/photos/random/?query=${searchParameter}&client_id=${UNSPLASH_ACCESS_KEY}`)
+            .get(`${API_URL}/?query=${searchParameter}`)
             .then(response => {
                 setImages(prevImages => {
                     return [{ ...response.data, title: searchParameter }, ...prevImages]
