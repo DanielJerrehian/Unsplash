@@ -19,7 +19,7 @@ function App() {
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         axios
-            .get(`${API_URL}/?query=${searchParameter}`)
+            .get(`${API_URL}/new-image?query=${searchParameter}`)
             .then(response => {
                 setImages(prevImages => {
                     return [{ ...response.data, title: searchParameter }, ...prevImages]
