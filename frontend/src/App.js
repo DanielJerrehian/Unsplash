@@ -16,18 +16,16 @@ function App() {
     const [searchParameter, setSearchParamter] = useState('');
     const [images, setImages] = useState([])
 
-    const handleSearchSubmit = (e) => {
+    const handleSearchSubmit = async (e) => {
         e.preventDefault();
-        axios
-            .get(`${API_URL}/new-image?query=${searchParameter}`)
-            .then(response => {
-                setImages(prevImages => {
-                    return [{ ...response.data, title: searchParameter }, ...prevImages]
-                })
-            })
-            .catch(function (error) {
-                console.log(error.toJSON());
-            });
+        
+        try {
+            const response = axios.get(`${API_URL}/new-image?query=${searchParameter}`)
+            setImages(prevImages => { [{ ...response.data, title: searchParameter }, ...prevImages] })
+        } catch (error) {
+            console.log(error.toJSON());
+        }
+        
         setSearchParamter('');
     }
 

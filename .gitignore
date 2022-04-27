@@ -11,5 +11,4 @@ build
 .env.local
 
 # Virtual Environment
-
 venv
