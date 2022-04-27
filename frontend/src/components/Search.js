@@ -1,8 +1,8 @@
 import React from "react";
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 
 function Search(props) {
-    const { searchParameter, handleSearchSubmit, handleOnChange } = props;
+    const { searchParameter, handleSearchSubmit, handleOnChange, loading } = props;
     
 
     return (
@@ -19,7 +19,13 @@ function Search(props) {
                                     placeholder="Search for new image..." />
                             </Col>
                             <Col>
-                                <Button variant="primary" type="submit">Search</Button>
+                                <Button 
+                                    variant="primary"
+                                    type="submit"
+                                >
+                                    { loading && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="mr-2" /> }
+                                    Search
+                                </Button>
                             </Col>
                         </Form.Row>
                     </Form>

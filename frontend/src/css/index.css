@@ -6,8 +6,3 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-.image-card {
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
