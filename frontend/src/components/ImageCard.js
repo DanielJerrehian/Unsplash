@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Nav } from 'react-bootstrap';
 
 function ImageCard(props) {
     const { image, handleDeleteImage, handleSaveImage } = props;
@@ -10,9 +10,11 @@ function ImageCard(props) {
                 <Card.Title>{image.title?.toUpperCase()}</Card.Title>
                 <Card.Text>
                     {
-                        image?.description?.charAt(0)?.toUpperCase() + image?.description?.slice(1)
+                        image?.description?.charAt(0)?.toUpperCase() + image?.description?.slice(1) 
                         || 
-                        image?.alt_description?.charAt(0)?.toUpperCase() + image?.alt_description?.slice(1)
+                        image?.alt_description?.charAt(0)?.toUpperCase() + image?.alt_description?.slice(1) 
+                        ||
+                        "No description provided"
                     }
                 </Card.Text>
                 <div className="d-flex justify-content-center">
@@ -36,6 +38,25 @@ function ImageCard(props) {
                     </Button>
                 </div>
             </Card.Body>
+            <Card.Footer
+                className="text-muted"
+            >
+                {
+                    image?.user?.name && !image?.user?.portfolio_url && <p>Author Name: {image?.user?.name}</p>
+                }
+                {
+                    image?.user?.portfolio_url && 
+                    <Nav.Link href={image?.user?.portfolio_url} target="_blank">
+                        {
+                            image?.user?.name
+                            ? 
+                                `${image?.user?.name}'s Portfolio`
+                            :
+                                "Author's Portfolio"
+                        }
+                    </Nav.Link>
+                }
+            </Card.Footer>
         </Card>
     )
 }

@@ -2,9 +2,8 @@ import React from "react";
 import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 
 function Search(props) {
-    const { searchParameter, handleSearchSubmit, handleOnChange, loading } = props;
+    const { searchParameter, handleSearchSubmit, handleOnChange, searchLoading } = props;
     
-
     return (
         <Container className="mt-4">
             <Row className="justify-content-center">
@@ -23,7 +22,7 @@ function Search(props) {
                                     variant="primary"
                                     type="submit"
                                 >
-                                    { loading && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="mr-2" /> }
+                                    { searchLoading && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="mr-2" /> }
                                     Search
                                 </Button>
                             </Col>

@@ -2,8 +2,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
 from dotenv import load_dotenv
+import pymongo
 import os
 import ast
+from time import sleep
+from datetime import datetime
 
 from mongo_client import mongo_client
 
@@ -42,11 +45,13 @@ def new_image():
 @app.route("/images", methods=["GET", "POST"])
 def images():
     if request.method == "GET":
-        images = images_collection.find({})
+        sleep(.5) # simulate non-local DB loading & show Bootstrap Spinner on frontend
+        images = images_collection.find({}).sort([("datetime_saved", pymongo.DESCENDING)])
         return jsonify([img for img in images])
     elif request.method == "POST":
         image = request.get_json()
         image["_id"] = image.get("id")
+        image["datetime_saved"] = datetime.utcnow()
         result = images_collection.insert_one(image)
         inserted_id = result.inserted_id
         return {"insertedId": inserted_id}
