@@ -18,7 +18,6 @@ function App() {
     const [images, setImages] = useState([]);
     const [appLoading, setAppLoading] = useState(false);
     const [searchLoading, setSearchLoading] = useState(false);
-
     const notifyToast = (toastText) => toast(toastText);
 
     const getSavedImages = () => {
@@ -75,7 +74,7 @@ function App() {
                 }
              })
             .catch(function (error) {
-                console.log(error.toJSON());
+                console.log(error);
             });
     }
 
